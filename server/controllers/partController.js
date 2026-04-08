@@ -96,9 +96,16 @@ const getPartById = async (req, res) => {
 // Create new part
 const createPart = async (req, res) => {
   try {
+    console.log('Create part request body:', req.body);
+    console.log('Create part files:', req.files);
+    
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
+      console.log('Validation errors:', errors.array());
+      return res.status(400).json({ 
+        message: 'Validation failed',
+        errors: errors.array() 
+      });
     }
 
     const {
@@ -127,18 +134,20 @@ const createPart = async (req, res) => {
       vehicleCategory,
       vehicleMake,
       vehicleModel,
-      vehicleYear,
+      vehicleYear: vehicleYear ? parseInt(vehicleYear) : undefined,
       partCategory,
       partNumber,
       condition,
-      price,
-      negotiable,
+      price: parseFloat(price),
+      negotiable: negotiable === 'true' || negotiable === true,
       images,
       sellerName,
       sellerPhone,
       sellerAddress,
       seller: req.user._id
     });
+
+    console.log('Part object before save:', part);
 
     await part.save();
 
@@ -148,6 +157,19 @@ const createPart = async (req, res) => {
     });
   } catch (error) {
     console.error('Create part error:', error);
+    
+    // Handle mongoose validation errors
+    if (error.name === 'ValidationError') {
+      const validationErrors = Object.values(error.errors).map(err => ({
+        field: err.path,
+        message: err.message
+      }));
+      return res.status(400).json({ 
+        message: 'Validation failed',
+        errors: validationErrors 
+      });
+    }
+    
     res.status(500).json({ message: 'Server error while creating part' });
   }
 };

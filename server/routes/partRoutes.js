@@ -16,6 +16,9 @@ const router = express.Router();
 // Get all parts (public)
 router.get('/', getParts);
 
+// Get user's listings (protected) - MUST be before /:id route
+router.get('/my/listings', authMiddleware, getMyListings);
+
 // Get single part (public)
 router.get('/:id', getPartById);
 
@@ -39,8 +42,5 @@ router.put('/:id', authMiddleware, upload.array('images', 5), updatePart);
 
 // Delete part (protected)
 router.delete('/:id', authMiddleware, deletePart);
-
-// Get user's listings (protected)
-router.get('/my/listings', authMiddleware, getMyListings);
 
 module.exports = router;

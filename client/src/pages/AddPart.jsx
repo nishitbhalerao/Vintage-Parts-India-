@@ -131,7 +131,17 @@ const AddPart = () => {
       const response = await partsAPI.createPart(formDataToSend);
       navigate(`/parts/${response.data.part._id}`);
     } catch (error) {
-      setError(error.response?.data?.message || 'Failed to create listing');
+      console.error('Create part error:', error);
+      
+      // Handle validation errors
+      if (error.response?.data?.errors) {
+        const errorMessages = error.response.data.errors.map(err => 
+          err.message || err.msg || 'Validation error'
+        ).join(', ');
+        setError(`Validation failed: ${errorMessages}`);
+      } else {
+        setError(error.response?.data?.message || 'Failed to create listing');
+      }
     } finally {
       setLoading(false);
     }
