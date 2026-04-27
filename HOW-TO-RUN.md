@@ -1,249 +1,466 @@
-# 🚀 How to Run VintageParts India - Complete Guide
+# 🚀 How to Run VintageParts India
 
-## 📋 Prerequisites Check
+Complete step-by-step guide to get the application running on your local machine.
 
-Before starting, ensure you have:
-- ✅ Node.js installed (v16 or higher)
-- ✅ MongoDB installed and configured
-- ✅ Git (optional, for cloning)
+---
 
-## 🔄 Step-by-Step Startup Process
+## 📋 Table of Contents
+1. [Prerequisites](#prerequisites)
+2. [Installation Steps](#installation-steps)
+3. [Configuration](#configuration)
+4. [Starting the Application](#starting-the-application)
+5. [Verification](#verification)
+6. [Troubleshooting](#troubleshooting)
+7. [First Time Setup](#first-time-setup)
 
-### Step 1: Start MongoDB (FIRST - Most Important!)
+---
 
-MongoDB must be running before starting the backend server.
+## ✅ Prerequisites
 
-**Option A: Start as Windows Service**
-```powershell
-# Open PowerShell as Administrator
-net start MongoDB
+Before you start, make sure you have the following installed:
+
+### 1. **Node.js (v16 or higher)**
+- **Download**: https://nodejs.org/
+- **Verify Installation**:
+  ```bash
+  node --version
+  npm --version
+  ```
+- Should show version numbers like `v16.x.x` and `8.x.x`
+
+### 2. **MongoDB (v5 or higher)**
+
+**Option A: Local MongoDB Installation**
+- **Download**: https://www.mongodb.com/try/download/community
+- **Installation Guide**: https://docs.mongodb.com/manual/installation/
+- **Verify Installation**:
+  ```bash
+  mongod --version
+  ```
+
+**Option B: MongoDB Atlas (Cloud - Recommended)**
+- **Website**: https://www.mongodb.com/cloud/atlas
+- **Steps**:
+  1. Create free account
+  2. Create a cluster
+  3. Get connection string (looks like: `mongodb+srv://username:password@cluster.mongodb.net/dbname`)
+  4. Use this string in `.env` file
+
+### 3. **Git**
+- **Download**: https://git-scm.com/
+- **Verify Installation**:
+  ```bash
+  git --version
+  ```
+
+### 4. **Code Editor (Optional but Recommended)**
+- **VS Code**: https://code.visualstudio.com/
+- **WebStorm**: https://www.jetbrains.com/webstorm/
+
+---
+
+## 📥 Installation Steps
+
+### Step 1: Clone the Repository
+
+Open your terminal/command prompt and run:
+
+```bash
+git clone https://github.com/nishitbhalerao/Vintage-Parts-India-.git
+cd Vintage-Parts-India-
 ```
 
-**Option B: Check if already running**
-```powershell
-# Check MongoDB service status
-Get-Service -Name "*mongo*"
-# Should show: Status = Running
+**Expected Output**:
+```
+Cloning into 'Vintage-Parts-India-'...
+remote: Enumerating objects: 88, done.
+...
 ```
 
-**Option C: Start manually (if service method doesn't work)**
-```powershell
-# Navigate to MongoDB bin directory (adjust path as needed)
-cd "C:\Program Files\MongoDB\Server\7.0\bin"
-mongod --dbpath "C:\data\db"
+### Step 2: Install Backend Dependencies
+
+Navigate to the server folder and install dependencies:
+
+```bash
+cd server
+npm install
 ```
 
-**✅ Verify MongoDB is Running:**
-```powershell
-# Check if port 27017 is listening
-netstat -an | findstr :27017
-# Should show: TCP 127.0.0.1:27017 ... LISTENING
+**Expected Output**:
+```
+added XXX packages in XXs
+```
+
+**What it does**: Downloads all required packages for the backend server (Express, MongoDB, JWT, etc.)
+
+### Step 3: Install Frontend Dependencies
+
+Navigate to the client folder and install dependencies:
+
+```bash
+cd ../client
+npm install
+```
+
+**Expected Output**:
+```
+added XXX packages in XXs
+```
+
+**What it does**: Downloads all required packages for the frontend (React, Vite, Tailwind, etc.)
+
+---
+
+## ⚙️ Configuration
+
+### Step 4: Setup MongoDB
+
+#### **If using Local MongoDB:**
+
+1. **Start MongoDB Service**:
+   - **Windows**: 
+     - MongoDB should start automatically
+     - Or open Command Prompt and run: `mongod`
+   - **Mac**: 
+     ```bash
+     brew services start mongodb-community
+     ```
+   - **Linux**: 
+     ```bash
+     sudo systemctl start mongod
+     ```
+
+2. **Verify MongoDB is Running**:
+   ```bash
+   mongosh
+   ```
+   You should see a MongoDB shell prompt. Type `exit` to quit.
+
+#### **If using MongoDB Atlas (Cloud):**
+
+1. Go to https://www.mongodb.com/cloud/atlas
+2. Create account and cluster
+3. Click "Connect" → "Drivers" → Copy connection string
+4. It will look like: `mongodb+srv://username:password@cluster.mongodb.net/dbname`
+
+### Step 5: Create Environment Files
+
+#### **Backend Configuration** - Create `server/.env`
+
+Navigate to the `server` folder and create a file named `.env`:
+
+```env
+PORT=5000
+MONGODB_URI=mongodb://127.0.0.1:27017/vintagepartsIndia
+JWT_SECRET=your_super_secret_jwt_key_12345_change_this
+NODE_ENV=development
+```
+
+**If using MongoDB Atlas**, replace `MONGODB_URI` with your connection string:
+```env
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/vintagepartsIndia
+```
+
+#### **Frontend Configuration** - Create `client/.env`
+
+Navigate to the `client` folder and create a file named `.env`:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+**File Structure After Setup**:
+```
+Vintage-Parts-India-/
+├── server/
+│   ├── .env                 ← Create this file
+│   ├── package.json
+│   └── ...
+├── client/
+│   ├── .env                 ← Create this file
+│   ├── package.json
+│   └── ...
+└── ...
 ```
 
 ---
 
-### Step 2: Start Backend Server (SECOND)
+## 🎬 Starting the Application
 
-Open **Terminal/PowerShell Window #1**:
+### Option 1: Automated Start (Windows Only)
 
-```powershell
-# Navigate to project directory
-cd "path\to\your\vintageParts-india"
+From the project root directory, double-click:
+```
+start-project.bat
+```
 
-# Go to server directory
+This will automatically start both servers in separate windows.
+
+### Option 2: Manual Start (All Platforms - Recommended)
+
+#### **Terminal 1: Start Backend Server**
+
+```bash
 cd server
-
-# Install dependencies (first time only)
-npm install
-
-# Start backend server
 npm run dev
 ```
 
-**✅ Expected Output:**
+**Expected Output**:
 ```
-✅ MongoDB Connected: 127.0.0.1
+[nodemon] 3.1.14
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] starting `node server.js`
 Server running on port 5000
+✅ MongoDB Connected: 127.0.0.1
 ```
 
-**❌ If you see errors:**
-- `Database connection error` → MongoDB not running (go back to Step 1)
-- `Port 5000 already in use` → Kill process: `netstat -ano | findstr :5000` then `taskkill /PID <PID> /F`
+✅ **Backend is ready!** Keep this terminal open.
+
+#### **Terminal 2: Start Frontend Server**
+
+Open a new terminal and run:
+
+```bash
+cd client
+npm run dev
+```
+
+**Expected Output**:
+```
+VITE v4.5.14  ready in 1240 ms
+
+➜  Local:   http://localhost:3000/
+➜  Network: use --host to expose
+➜  press h to show help
+```
+
+✅ **Frontend is ready!** Keep this terminal open.
 
 ---
 
-### Step 3: Start Frontend Client (THIRD)
+## ✔️ Verification
 
-Open **Terminal/PowerShell Window #2**:
+### Step 1: Check Backend
 
-```powershell
-# Navigate to project directory (new terminal window)
-cd "path\to\your\vintageParts-india"
-
-# Go to client directory
-cd client
-
-# Install dependencies (first time only)
-npm install
-
-# Start frontend server
-npm run dev
+Open your browser and go to:
+```
+http://localhost:5000/api/parts
 ```
 
-**✅ Expected Output:**
+You should see a JSON response with parts data (or empty array if no parts yet).
+
+### Step 2: Check Frontend
+
+Open your browser and go to:
 ```
-VITE v4.5.14 ready in 498 ms
-➜ Local:   http://localhost:3000/
-➜ Network: use --host to expose
+http://localhost:3000
 ```
+
+You should see the VintageParts India homepage with:
+- Navigation bar
+- Search bar
+- Featured parts section
+- Call-to-action buttons
+
+### Step 3: Test Admin Login
+
+1. Go to http://localhost:3000/login
+2. Enter credentials:
+   - **Email**: `bhaleraonishit@gmail.com`
+   - **Password**: `Nishit@1098`
+3. Click "Sign in"
+4. You should be redirected to dashboard
+5. Click on "Admin Panel" in navbar
+6. You should see admin dashboard with statistics
+
+### Step 4: Test User Registration
+
+1. Go to http://localhost:3000/register
+2. Fill in the form with test data
+3. Click "Create account"
+4. You should be logged in and redirected to dashboard
+
+### Step 5: Test Part Listing
+
+1. From dashboard, click "Sell Part"
+2. Fill in the 3-step form
+3. Upload images
+4. Click "Create Listing"
+5. You should see the part in "My Listings"
 
 ---
 
-### Step 4: Access Application (FINAL)
+## 🆘 Troubleshooting
 
-Open your web browser and go to:
-**http://localhost:3000**
+### ❌ MongoDB Connection Error
 
-## 🎯 Quick Start Commands (Copy & Paste)
-
-### For First Time Setup:
-```powershell
-# Terminal 1 - Backend
-cd server
-npm install
-npm run dev
-
-# Terminal 2 - Frontend (open new terminal)
-cd client
-npm install
-npm run dev
+**Error Message**:
+```
+Error: connect ECONNREFUSED 127.0.0.1:27017
 ```
 
-### For Daily Development:
-```powershell
-# Terminal 1 - Backend
-cd server
-npm run dev
+**Solution**:
+1. Make sure MongoDB is running
+2. **Windows**: Open Command Prompt and run `mongod`
+3. **Mac**: Run `brew services start mongodb-community`
+4. **Linux**: Run `sudo systemctl start mongod`
+5. Wait 5 seconds and restart backend server
 
-# Terminal 2 - Frontend (open new terminal)
-cd client
-npm run dev
+### ❌ Port Already in Use
+
+**Error Message**:
 ```
-
-## 🔧 Troubleshooting Common Issues
-
-### Issue 1: MongoDB Connection Failed
-```
-❌ Database connection error: connect ECONNREFUSED 127.0.0.1:27017
-```
-**Solution:**
-```powershell
-# Start MongoDB service
-net start MongoDB
-
-# Or check if running
-Get-Service MongoDB
+Error: listen EADDRINUSE: address already in use :::5000
 ```
 
-### Issue 2: Port Already in Use
-```
-❌ Error: listen EADDRINUSE: address already in use :::5000
-```
-**Solution:**
-```powershell
-# Find and kill process using port 5000
-netstat -ano | findstr :5000
-taskkill /PID <PID_NUMBER> /F
+**Solution**:
+1. **Windows**:
+   ```bash
+   netstat -ano | findstr :5000
+   taskkill /PID <PID> /F
+   ```
+2. **Mac/Linux**:
+   ```bash
+   lsof -i :5000
+   kill -9 <PID>
+   ```
+3. Restart the server
 
-# Then restart server
-npm run dev
-```
+### ❌ Dependencies Installation Failed
 
-### Issue 3: Frontend Won't Start
+**Error Message**:
 ```
-❌ Error: listen EADDRINUSE: address already in use :::3000
-```
-**Solution:**
-```powershell
-# Find and kill process using port 3000
-netstat -ano | findstr :3000
-taskkill /PID <PID_NUMBER> /F
-
-# Then restart client
-npm run dev
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE unable to resolve dependency tree
 ```
 
-### Issue 4: Dependencies Missing
-```
-❌ Module not found errors
-```
-**Solution:**
-```powershell
-# Clear cache and reinstall
+**Solution**:
+```bash
 npm cache clean --force
 rm -rf node_modules package-lock.json
 npm install
 ```
 
-## 🎮 Testing Your Setup
+### ❌ Frontend Not Loading
 
-### 1. Test Backend API
-```powershell
-curl http://localhost:5000/api/health
-# Should return: {"message":"VintageParts India API is running!"}
-```
+**Problem**: Blank page or "Cannot GET /"
 
-### 2. Test Frontend
-- Open: http://localhost:3000
-- Should see animated landing page
+**Solution**:
+1. Check if Vite server is running (should show `http://localhost:3000/`)
+2. Clear browser cache: `Ctrl+Shift+Delete` (Windows) or `Cmd+Shift+Delete` (Mac)
+3. Hard refresh: `Ctrl+F5` (Windows) or `Cmd+Shift+R` (Mac)
+4. Check browser console for errors: Press `F12`
 
-### 3. Test Database Connection
-```powershell
-curl http://localhost:5000/api/parts
-# Should return: {"parts":[],"pagination":{...}}
-```
+### ❌ Backend API Not Responding
 
-## 🔄 Stopping the Application
+**Problem**: "Failed to fetch" or network errors
 
-### Stop All Servers:
-1. **Frontend**: Press `Ctrl + C` in Terminal 2
-2. **Backend**: Press `Ctrl + C` in Terminal 1
-3. **MongoDB**: `net stop MongoDB` (optional - can keep running)
+**Solution**:
+1. Verify backend is running on port 5000
+2. Check `VITE_API_URL` in `client/.env` is correct
+3. Check MongoDB connection in backend terminal
+4. Restart both servers
 
-## 📱 What to Expect After Startup
+### ❌ Images Not Uploading
 
-### URLs:
+**Problem**: Upload fails or images don't appear
+
+**Solution**:
+1. Check `server/uploads/` folder exists
+2. Verify file size is less than 5MB
+3. Check file format is PNG, JPG, or JPEG
+4. Check backend logs for errors
+
+### ❌ Admin Login Not Working
+
+**Problem**: "Invalid credentials" error
+
+**Solution**:
+1. Verify you're using correct credentials:
+   - Email: `bhaleraonishit@gmail.com`
+   - Password: `Nishit@1098`
+2. Check MongoDB has admin user (check in MongoDB Compass)
+3. Clear browser cookies and try again
+
+---
+
+## 🎯 First Time Setup Checklist
+
+- [ ] Node.js installed and verified (`node --version`)
+- [ ] MongoDB installed and running (`mongod` works)
+- [ ] Git installed (`git --version`)
+- [ ] Repository cloned
+- [ ] Backend dependencies installed (`npm install` in server/)
+- [ ] Frontend dependencies installed (`npm install` in client/)
+- [ ] `server/.env` file created with correct values
+- [ ] `client/.env` file created with correct values
+- [ ] Backend server running on port 5000
+- [ ] Frontend server running on port 3000
+- [ ] Can access http://localhost:3000 in browser
+- [ ] Can login with admin credentials
+- [ ] Can create test user account
+- [ ] Can list a test part
+
+---
+
+## 📱 Quick Reference
+
+### URLs
 - **Frontend**: http://localhost:3000
 - **Backend API**: http://localhost:5000
-- **API Health**: http://localhost:5000/api/health
+- **Admin Panel**: http://localhost:3000/admin
+- **Browse Parts**: http://localhost:3000/browse
+- **Add Part**: http://localhost:3000/add-part
 
-### Features Ready:
-- ✅ User Registration/Login
-- ✅ Add Parts with Images
-- ✅ Browse & Search Parts
-- ✅ WhatsApp Integration
-- ✅ Responsive Design
-- ✅ Dashboard & Analytics
+### Admin Credentials
+- **Email**: bhaleraonishit@gmail.com
+- **Password**: Nishit@1098
 
-## 🚀 Development Workflow
+### Important Folders
+- **Backend**: `server/`
+- **Frontend**: `client/`
+- **Uploads**: `server/uploads/`
+- **Database**: MongoDB (local or Atlas)
 
-### Daily Startup Routine:
-1. **Check MongoDB**: `Get-Service MongoDB`
-2. **Start Backend**: `cd server && npm run dev`
-3. **Start Frontend**: `cd client && npm run dev`
-4. **Open Browser**: http://localhost:3000
+### Useful Commands
+```bash
+# Start backend
+cd server && npm run dev
 
-### Making Changes:
-- **Backend changes**: Server auto-restarts (nodemon)
-- **Frontend changes**: Page auto-reloads (Vite HMR)
-- **Database changes**: Persistent in MongoDB
+# Start frontend
+cd client && npm run dev
 
-## 🎉 Success Indicators
+# Check if port is in use
+netstat -ano | findstr :5000
 
-You'll know everything is working when:
-- ✅ Backend shows: "MongoDB Connected" + "Server running on port 5000"
-- ✅ Frontend shows: "Local: http://localhost:3000/"
-- ✅ Browser loads the animated landing page
-- ✅ You can register/login successfully
+# Clear npm cache
+npm cache clean --force
 
-**Happy Development! 🚀**
+# Reinstall dependencies
+rm -rf node_modules package-lock.json && npm install
+```
+
+---
+
+## 🎓 Next Steps
+
+1. **Explore the Code**: Check `client/src/` and `server/` folders
+2. **Read Documentation**: Check [README.md](README.md) and [ADMIN-GUIDE.md](ADMIN-GUIDE.md)
+3. **Make Changes**: Try modifying components and see live updates
+4. **Test Features**: Create accounts, list parts, use admin panel
+5. **Deploy**: When ready, deploy to Heroku/Railway (backend) and Vercel/Netlify (frontend)
+
+---
+
+## 💬 Need Help?
+
+- Check [Troubleshooting](#troubleshooting) section above
+- Read [README.md](README.md) for more details
+- Check [ADMIN-GUIDE.md](ADMIN-GUIDE.md) for admin features
+- Open an issue on [GitHub](https://github.com/nishitbhalerao/Vintage-Parts-India-/issues)
+- Email: bhaleraonishit@gmail.com
+
+---
+
+**Happy coding! 🚀**

@@ -1,120 +1,108 @@
-# 🚀 VintageParts India - Quick Start Guide
+# ⚡ Quick Start Guide - 5 Minutes to Running
 
-## 🎯 Super Simple Startup (3 Methods)
+Get VintageParts India running in just 5 minutes!
 
-### Method 1: Automated Script (Easiest)
-```powershell
-# Double-click this file:
-start-project.bat
+---
 
-# Or run in PowerShell:
-.\start-project.ps1
+## 🚀 Super Quick Setup
+
+### Prerequisites (2 minutes)
+```bash
+# Check Node.js is installed
+node --version    # Should show v16+
+
+# Check MongoDB is running
+mongod --version  # Should show version
 ```
 
-### Method 2: Manual Commands (Recommended for Development)
-```powershell
-# Step 1: Start MongoDB (if not running)
-net start MongoDB
+### Installation (2 minutes)
+```bash
+# Clone and install
+git clone https://github.com/nishitbhalerao/Vintage-Parts-India-.git
+cd Vintage-Parts-India-
 
-# Step 2: Backend (Terminal 1)
-cd server
-npm run dev
+# Backend
+cd server && npm install && cd ..
 
-# Step 3: Frontend (Terminal 2 - New Window)
-cd client  
-npm run dev
-
-# Step 4: Open Browser
-# Go to: http://localhost:3000
+# Frontend
+cd client && npm install && cd ..
 ```
 
-### Method 3: One-Line Commands
-```powershell
-# Terminal 1 - Backend
+### Configuration (1 minute)
+
+**Create `server/.env`**:
+```env
+PORT=5000
+MONGODB_URI=mongodb://127.0.0.1:27017/vintagepartsIndia
+JWT_SECRET=secret123
+NODE_ENV=development
+```
+
+**Create `client/.env`**:
+```env
+VITE_API_URL=http://localhost:5000/api
+```
+
+### Run (1 minute)
+
+**Terminal 1 - Backend**:
+```bash
 cd server && npm run dev
+```
 
-# Terminal 2 - Frontend  
+**Terminal 2 - Frontend**:
+```bash
 cd client && npm run dev
 ```
 
-## ⚡ What Happens When You Start
+### Access
+- **App**: http://localhost:3000
+- **Admin**: Login with `bhaleraonishit@gmail.com` / `Nishit@1098`
 
-### 1. MongoDB Starts (Port 27017)
-```
-✅ MongoDB service started
-```
+---
 
-### 2. Backend Starts (Port 5000)
-```
-✅ MongoDB Connected: 127.0.0.1
-Server running on port 5000
-```
+## 🎯 What to Do Next
 
-### 3. Frontend Starts (Port 3000)
-```
-VITE v4.5.14 ready in 498 ms
-➜ Local: http://localhost:3000/
-```
+### 1. Browse Parts
+- Go to http://localhost:3000/browse
+- Search and filter parts
 
-### 4. Browser Opens
-- **URL**: http://localhost:3000
-- **Page**: Animated landing page with blue theme
+### 2. Create Account
+- Click "Sign Up"
+- Fill in details
+- Create account
 
-## 🔍 Startup Order (IMPORTANT!)
+### 3. List a Part
+- Go to Dashboard
+- Click "Sell Part"
+- Fill 3-step form
+- Upload images
+- Submit
 
-**ALWAYS start in this order:**
-1. **MongoDB** (must be first)
-2. **Backend** (needs MongoDB)
-3. **Frontend** (needs Backend for API calls)
+### 4. Admin Panel
+- Login with admin credentials
+- Go to Admin Panel
+- Manage users and parts
 
-## 🎮 Quick Test
+---
 
-After startup, test these URLs:
-- **Frontend**: http://localhost:3000 ✅ Should show landing page
-- **Backend**: http://localhost:5000/api/health ✅ Should return JSON
-- **Parts API**: http://localhost:5000/api/parts ✅ Should return empty array
+## ⚠️ Common Issues
 
-## 🛑 How to Stop
+| Issue | Solution |
+|-------|----------|
+| MongoDB error | Run `mongod` in terminal |
+| Port in use | Kill process: `taskkill /PID <PID> /F` |
+| Blank page | Clear cache: `Ctrl+Shift+Delete` |
+| API not working | Check backend is running on 5000 |
 
-1. **Frontend**: Press `Ctrl + C` in frontend terminal
-2. **Backend**: Press `Ctrl + C` in backend terminal  
-3. **MongoDB**: Keep running (or `net stop MongoDB`)
+---
 
-## 🔧 If Something Goes Wrong
+## 📚 Full Documentation
 
-### MongoDB Issues:
-```powershell
-# Check if MongoDB is running
-Get-Service MongoDB
+- **Detailed Setup**: [HOW-TO-RUN.md](HOW-TO-RUN.md)
+- **Admin Guide**: [ADMIN-GUIDE.md](ADMIN-GUIDE.md)
+- **Full README**: [README.md](README.md)
 
-# Start if stopped
-net start MongoDB
-```
+---
 
-### Port Issues:
-```powershell
-# Kill process on port 5000 (backend)
-netstat -ano | findstr :5000
-taskkill /PID <PID> /F
-
-# Kill process on port 3000 (frontend)  
-netstat -ano | findstr :3000
-taskkill /PID <PID> /F
-```
-
-### Dependency Issues:
-```powershell
-# Reinstall dependencies
-cd server && npm install
-cd client && npm install
-```
-
-## 🎉 Success Checklist
-
-- ✅ MongoDB service running
-- ✅ Backend shows "MongoDB Connected"  
-- ✅ Frontend shows "Local: http://localhost:3000"
-- ✅ Browser opens to animated landing page
-- ✅ Can register/login successfully
-
-**You're ready to build! 🚀**
+**That's it! You're ready to go! 🎉**
