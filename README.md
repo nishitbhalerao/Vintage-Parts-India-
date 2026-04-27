@@ -4,8 +4,15 @@
 [![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-18+-blue.svg)](https://reactjs.org/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-5+-green.svg)](https://mongodb.com/)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR_SITE_ID/deploy-status)](https://app.netlify.com/sites/vintagepartsIndia/deploys)
 
 > India's first marketplace connecting buyers and sellers of discontinued automobile spare parts for bikes and cars.
+
+## 🌐 Live Demo
+
+**Frontend**: [https://vintagepartsIndia.netlify.app](https://vintagepartsIndia.netlify.app)
+
+> **Note**: Backend API needs to be deployed separately. See [Deployment Guide](#-deployment) for details.
 
 
 
@@ -308,11 +315,25 @@ npm run lint     # Run ESLint (if configured)
 
 ## 🚀 Deployment
 
+### Deploy Frontend on Netlify ✅ (LIVE)
+
+**Live Site**: [https://vintagepartsIndia.netlify.app](https://vintagepartsIndia.netlify.app)
+
+**Quick Deploy**:
+```bash
+netlify login
+netlify init
+netlify deploy --prod
+```
+
+**Detailed Guide**: See [QUICK-DEPLOY.md](QUICK-DEPLOY.md) or [NETLIFY-DEPLOYMENT.md](NETLIFY-DEPLOYMENT.md)
+
 ### Deploy Backend (Heroku/Railway)
 1. Create account on [Heroku](https://heroku.com) or [Railway](https://railway.app)
 2. Connect GitHub repository
 3. Set environment variables
 4. Deploy
+5. Update `VITE_API_URL` in Netlify environment variables
 
 ### Deploy Frontend (Vercel/Netlify)
 1. Create account on [Vercel](https://vercel.com) or [Netlify](https://netlify.com)
