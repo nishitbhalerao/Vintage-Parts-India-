@@ -7,7 +7,7 @@
 
 > India's first marketplace connecting buyers and sellers of discontinued automobile spare parts for bikes and cars.
 
-![VintageParts India](https://via.placeholder.com/800x400/1A56DB/FFFFFF?text=VintageParts+India+🔧)
+
 
 ## 🌟 Features
 
