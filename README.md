@@ -186,11 +186,6 @@ npm install
 - Check `VITE_API_URL` in client/.env matches backend URL
 - Check MongoDB connection in server logs
 
-## 🛡️ Admin Access
-
-### Admin Credentials
-- **Email**: `bhaleraonishit@gmail.com`
-- **Password**: `Nishit@1098`
 
 ### Admin Features
 - 👥 **User Management**: View, search, delete users
@@ -222,19 +217,7 @@ npm install
 6. **Submit**: Click "Create Listing"
 7. **Manage Listings**: View and manage your parts at http://localhost:3000/my-listings
 
-### For Admins
-1. **Login**: Use admin credentials above
-2. **Access Admin Panel**: Go to http://localhost:3000/admin
-3. **Manage Users**: 
-   - View all users at http://localhost:3000/admin/users
-   - Delete suspicious accounts
-4. **Manage Parts**:
-   - Review pending parts at http://localhost:3000/admin/parts
-   - Approve or reject listings
-   - Feature genuine products with ⭐
-5. **View Analytics**: Check dashboard for platform statistics
 
----
 
 ## 📊 Database Schema
 
