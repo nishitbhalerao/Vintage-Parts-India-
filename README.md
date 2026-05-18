@@ -4,13 +4,13 @@
 [![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-18+-blue.svg)](https://reactjs.org/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-5+-green.svg)](https://mongodb.com/)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR_SITE_ID/deploy-status)](https://app.netlify.com/sites/vintagepartsIndia/deploys)
+[![Vercel Status](https://img.shields.io/badge/Vercel-Live-success.svg)](https://vintage-parts-india.vercel.app)
 
 > India's first marketplace connecting buyers and sellers of discontinued automobile spare parts for bikes and cars.
 
 ## 🌐 Live Demo
 
-**Frontend**: [https://vintagepartsIndia.netlify.app](https://vintagepartsIndia.netlify.app)
+**Frontend**: [https://vintage-parts-india.vercel.app](https://vintage-parts-india.vercel.app) ✅ **LIVE**
 
 > **Note**: Backend API needs to be deployed separately. See [Deployment Guide](#-deployment) for details.
 
@@ -315,31 +315,29 @@ npm run lint     # Run ESLint (if configured)
 
 ## 🚀 Deployment
 
-### Deploy Frontend on Netlify ✅ (LIVE)
+### Frontend Deployment ✅ (LIVE ON VERCEL)
 
-**Live Site**: [https://vintagepartsIndia.netlify.app](https://vintagepartsIndia.netlify.app)
+**Live Site**: [https://vintage-parts-india.vercel.app](https://vintage-parts-india.vercel.app)
 
-**Quick Deploy**:
-```bash
-netlify login
-netlify init
-netlify deploy --prod
-```
+**Deployment Platform**: Vercel  
+**Status**: ✅ Active and Running  
+**Build**: Optimized with Vite  
 
-**Detailed Guide**: See [QUICK-DEPLOY.md](QUICK-DEPLOY.md) or [NETLIFY-DEPLOYMENT.md](NETLIFY-DEPLOYMENT.md)
+### Backend Deployment (Required for Full Functionality)
 
-### Deploy Backend (Heroku/Railway)
-1. Create account on [Heroku](https://heroku.com) or [Railway](https://railway.app)
-2. Connect GitHub repository
-3. Set environment variables
-4. Deploy
-5. Update `VITE_API_URL` in Netlify environment variables
+Your backend needs to be deployed to make the application fully functional. Choose one:
 
-### Deploy Frontend (Vercel/Netlify)
-1. Create account on [Vercel](https://vercel.com) or [Netlify](https://netlify.com)
-2. Connect GitHub repository
-3. Set `VITE_API_URL` to production backend URL
-4. Deploy
+- **Railway** (Recommended): https://railway.app
+- **Heroku**: https://heroku.com
+- **Render**: https://render.com
+
+**Steps:**
+1. Deploy backend to chosen platform
+2. Get backend URL (e.g., `https://your-api.railway.app`)
+3. Set environment variable in Vercel: `VITE_API_URL=https://your-api.railway.app/api`
+4. Redeploy frontend
+
+**See**: [BACKEND-DEPLOYMENT-OPTIONS.md](BACKEND-DEPLOYMENT-OPTIONS.md) for detailed instructions
 
 ---
 
