@@ -1,0 +1,19 @@
+# Ignore server folder - only deploy frontend
+server/
+.git/
+.gitignore
+README.md
+ADMIN-GUIDE.md
+QUICK-START.md
+HOW-TO-RUN.md
+SETUP-GUIDE.md
+DOCUMENTATION-INDEX.md
+DOCUMENTATION-SUMMARY.txt
+SECURITY-AUDIT-REPORT.md
+SECURITY-CHECKLIST.md
+LICENSE
+*.pdf
+.vscode/
+.env
+.env.local
+node_modules/
