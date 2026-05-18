@@ -4,13 +4,12 @@
 [![Node.js](https://img.shields.io/badge/Node.js-16+-green.svg)](https://nodejs.org/)
 [![React](https://img.shields.io/badge/React-18+-blue.svg)](https://reactjs.org/)
 [![MongoDB](https://img.shields.io/badge/MongoDB-5+-green.svg)](https://mongodb.com/)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/YOUR_SITE_ID/deploy-status)](https://app.netlify.com/sites/vintagepartsIndia/deploys)
+
 
 > India's first marketplace connecting buyers and sellers of discontinued automobile spare parts for bikes and cars.
 
 ## 🌐 Live Demo
 
-**Frontend**: [https://vintagepartsIndia.netlify.app](https://vintagepartsIndia.netlify.app)
 
 > **Note**: Backend API needs to be deployed separately. See [Deployment Guide](#-deployment) for details.
 
