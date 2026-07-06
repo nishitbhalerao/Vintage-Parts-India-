@@ -21,15 +21,15 @@ app.use(express.urlencoded({ extended: true }));
 // Serve uploaded files
 app.use('/uploads', express.static(path.join(__dirname, '../server/uploads')));
 
-// Routes
-app.use('/api/auth', authRoutes);
-app.use('/api/parts', partRoutes);
-app.use('/api/admin', adminRoutes);
-
-// Health check route
-app.get('/api/health', (req, res) => {
+// Health check route - at root level
+app.get('/health', (req, res) => {
   res.json({ message: 'VintageParts India API is running!' });
 });
+
+// API Routes
+app.use('/auth', authRoutes);
+app.use('/parts', partRoutes);
+app.use('/admin', adminRoutes);
 
 // Error handling middleware
 app.use((error, req, res, next) => {
