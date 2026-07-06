@@ -1,8 +1,5 @@
-client
+client/node_modules
+client/dist
 .git
 .gitignore
-node_modules
 *.md
-.env
-Procfile
-railway.json
